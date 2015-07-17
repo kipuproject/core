@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Fabrica de objetos para la familia de conexiones a bases de datos
@@ -113,7 +113,7 @@ class FabricaDbConexion {
         	foreach($resultado[0] as $clave=>$valor){
         		$resultado[0][$clave]=trim($valor);
         	}
-        	
+
             $resultado[0]["dbclave"] = $this->crypto->decodificar($resultado[0]["dbclave"]);
             $resultado[0][6] = $this->crypto->decodificar(trim($resultado[0][6]));
             return $this->recursoConfiguracion($nombre, $resultado);

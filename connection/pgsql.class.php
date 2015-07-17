@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  ############################################################################
 #    UNIVERSIDAD DISTRITAL Francisco Jose de Caldas                        #
@@ -350,14 +350,14 @@ class pgsql// implements Conector
 
 
 			if($numero==0){
-					
+
 				$numero=$this->conteo;
 			}
 
 			for($j=0; $j<$numero; $j++){
 				$salida = pg_fetch_array($busqueda);
 
-					
+
 				if($j==0){
 					$this->keys=array_keys($salida);
 					$i=0;
@@ -367,7 +367,7 @@ class pgsql// implements Conector
 						}
 					}
 				}
-					
+
 				for($un_campo=0; $un_campo<$this->campo; $un_campo++){
 					$this->registro[$j][$un_campo] = $salida[$un_campo];
 					$this->registro[$j][$this->claves[$un_campo]] = $salida[$un_campo];
@@ -456,7 +456,7 @@ class pgsql// implements Conector
 					/*echo $delete[$contador_2]."<br>";*/
 				}
 				return FALSE;
-					
+
 			}
 
 		}
@@ -516,13 +516,13 @@ class pgsql// implements Conector
 			if (is_array(reset($variables)))
 			{
 				$dimcount++;
-					
+
 			}
 
 
 			if($dimcount==1)
 			{
-					
+
 
 				foreach ($variables as $key => $value)
 				{

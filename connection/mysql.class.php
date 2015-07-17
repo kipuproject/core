@@ -135,10 +135,10 @@ class mysql //implements Conector
 	function conectar_db()
 	{
 
-		
+
 		$this->enlace=mysqli_connect($this->servidor, $this->usuario, $this->clave);
 		$this->enlace->query("SET NAMES 'utf8'");
-		
+
 
 		if($this->enlace){
 
@@ -152,13 +152,13 @@ class mysql //implements Conector
 
 
 		}else{
-			
+
 			$this->error = mysqli_errno();
 			error_log("\n".date("Y-m-d H:i:s")." > ".$this->error,3,"/home/azulkreent/kipulogs/mysql-log.log");
 
-			
+
 		}
-			
+
 
 	} // Fin del método conectar_db
 
@@ -230,12 +230,12 @@ class mysql //implements Conector
 	private function ejecutar_acceso_db($cadena_sql)
 	{
 
-		if(!$this->enlace->query($cadena_sql))
-		{
-			$this->error= $this->enlace->errno; 
-			error_log("\n".date("Y-m-d H:i:s")." > ".$this->error."\n [{$cadena_sql}]",3,"/home/azulkreent/kipulogs/mysql-log-1.log");
+		if(!$this->enlace->query($cadena_sql)){
 
-			return false; 
+			$this->error= $this->enlace->errno;
+		//	error_log("\n".date("Y-m-d H:i:s")." > ".$this->error."\n [{$cadena_sql}]",3,"/home/azulkreent/kipulogs/mysql-log-1.log");
+
+			return false;
 		}
 		else
 		{
@@ -251,8 +251,7 @@ class mysql //implements Conector
 	 * @access public
 	 */
 
-	function obtener_error()
-	{
+	function obtener_error(){
 		return $this->error;
 	}//Fin del método obtener_error
 
@@ -270,13 +269,13 @@ class mysql //implements Conector
 			return NULL;
 		}
 		$busqueda=$this->enlace->query($cadena_sql);
-		
+
 		if($busqueda){
-			
+
 			unset($this->registro);
 			$this->campo = $busqueda->field_count;
 			$this->conteo = $busqueda->num_rows;
-			
+
 			if($numero==0){
 
 				$numero=$this->conteo;
@@ -358,7 +357,7 @@ class mysql //implements Conector
 		}
 	}
 
- 
+
 	/**
 	 * @name transaccion
 	 * @return boolean resultado
@@ -383,7 +382,7 @@ class mysql //implements Conector
 					/*echo $delete[$contador_2]."<br>";*/
 				}
 				return FALSE;
-					
+
 			}
 
 		}
@@ -400,8 +399,8 @@ class mysql //implements Conector
 	 */
 	function __construct($registro)
 	{
-		$registro = @array_map('trim',$registro);		
-		
+		$registro = @array_map('trim',$registro);
+
 		$this->servidor = $registro["dbdns"];
 		$this->db = $registro["dbnombre"];
 		$this->usuario = $registro["dbusuario"];

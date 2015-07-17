@@ -8,7 +8,7 @@ require_once("core/builder/Mensaje.class.php");
 class Bootstrap{
 
 	var $sesionUsuario;
-	
+
   /**
 	 *
 	 * Objeto.
@@ -81,14 +81,14 @@ class Bootstrap{
 		$this->cuadroMensaje=Mensaje::singleton();
 		$this->conectorDB = FabricaDbConexion::singleton();
 		$this->cripto = Encriptador::singleton();
-		
+
 		/**
 		 * Importante conservar el orden de creación de los siguientes objetos porque tienen
 		 * referencias cruzadas.
 		 */
 		$this->miConfigurador=Configurador::singleton();
 		$this->miConfigurador->setConectorDB($this->conectorDB);
-		
+
 		/**
 		 * El objeto del a clase Sesion es el último que se debe crear.
 		 */
@@ -150,31 +150,31 @@ class Bootstrap{
 		require_once($this->miConfigurador->getVariableConfiguracion("raizDocumento")."/core/auth/Autenticador.class.php");
 		$this->autenticador=Autenticador::singleton();
 		$this->autenticador->especificarPagina($pagina);
-    				
+
 		if($this->autenticador->iniciarAutenticacion()){
 			/**
 			 * Procesa la página solicitada por el usuario
 			 */
 			require_once($this->miConfigurador->getVariableConfiguracion("raizDocumento")."/core/builder/Pagina.class.php");
-	
+
 			$this->miPagina=new Pagina();
 
-			if($this->miPagina->inicializarPagina($pagina)){ 
+			if($this->miPagina->inicializarPagina($pagina)){
 				return true;
 			}else{
 				$this->mostrarMensajeError($this->miPagina->getError());
 				return false;
-			}			
+			}
 		}else{
 			$this->mostrarMensajeError($this->autenticador->getError());
 			return false;
-		}		
-		
+		}
+
 	}
-	
+
 	private function mostrarMensajeError($mensaje){
 		$this->miConfigurador->setVariableConfiguracion("error", true);
-		$this->cuadroMensaje->mostrarMensaje($mensaje, "error");		
+		$this->cuadroMensaje->mostrarMensaje($mensaje, "error");
 	}
 
 	private function determinarPagina(){

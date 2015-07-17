@@ -28,13 +28,13 @@ class ArmadorPagina{
 		$this->enlace=$this->host.$this->sitio."?".$this->miConfigurador->getVariableConfiguracion("enlace");
 		$conexion="master";
 		$this->miRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
-  
+
 	}
 
 	function armarHTML($registroBloques){
 
 		$this->bloques=$registroBloques;
-		
+
 		if($this->miConfigurador->getVariableConfiguracion("cache")) {
 
 			//De forma predeterminada las paginas del aplicativo no tienen cache
@@ -53,24 +53,24 @@ class ArmadorPagina{
 	}
 
 	private function encabezadoPagina(){
-		
+
 		$enlace=$this->miConfigurador->getVariableConfiguracion("enlace");
 	//	$_REQUEST[$enlace]=str_replace(" ","+",$_REQUEST[$enlace]);
 	//	$cadena_sql="SELECT titulo,key_words FROM {$this->miConfigurador->getVariableConfiguracion("prefijo")}url_amigable WHERE url_original='".$_REQUEST[$enlace]."' ";
 	//	$seo=$this->miRecursoDB->ejecutarAcceso($cadena_sql,"busqueda");
-		 
-		
+
+
 		$htmlPagina="<head>\n";
-		
-		if(is_array($seo)){
-			$htmlPagina.="<title>".$seo[0][0]."</title>\n";
-			$htmlPagina.="<meta name='keywords' content='".$seo[0][1]."'>\n";
-		}else{
+
+	//	if(is_array($seo)){
+	//		$htmlPagina.="<title>".$seo[0][0]."</title>\n";
+	//		$htmlPagina.="<meta name='keywords' content='".$seo[0][1]."'>\n";
+	//	}else{
 			$htmlPagina.="<title>".$this->miConfigurador->getVariableConfiguracion("nombreAplicativo")."</title>\n";
-		}
-		
+	//	}
+
 		$htmlPagina.="<meta http-equiv='Content-Type' content='text/html; charset=utf-8' >\n";
-		
+
 		$htmlPagina.="<link rel='shortcut icon' href='".$this->host.$this->sitio."/"."favicon.ico' >\n";
 		echo $htmlPagina;
 
@@ -90,7 +90,7 @@ class ArmadorPagina{
 
 		// Para las páginas que requieren jquery
 		if(isset($_REQUEST["jquery"])){
-				
+
 			$this->incluirFuncionReady($unBloque);
 		}
 
@@ -100,10 +100,10 @@ class ArmadorPagina{
 	private function cuerpoPagina() {
 
 		echo "<body>\n";
-		
+
 		if(isset($_REQUEST["tema"]) && $_REQUEST["tema"]<>""){
 			$this->miConfigurador->setVariableConfiguracion("tema",$_REQUEST["tema"]);
-			
+
 		}else{
 			$tema=$this->miSesion->getValorSesion("tema");
 
@@ -111,8 +111,8 @@ class ArmadorPagina{
 				$this->miConfigurador->setVariableConfiguracion("tema",$tema);
 			}else{
 				$this->miConfigurador->setVariableConfiguracion("tema","default");
-			}	
-		
+			}
+
 		}
 		$valor=$this->variablesTema();
 		$mensaje=$valor["mensaje"];
@@ -122,33 +122,33 @@ class ArmadorPagina{
 
 		$rutaTema=$this->miConfigurador->getVariableConfiguracion("host").$this->miConfigurador->getVariableConfiguracion("site")."/theme/".$this->miConfigurador->getVariableConfiguracion("tema");
 		$rutaFiles=$this->miConfigurador->getVariableConfiguracion("host").$this->miConfigurador->getVariableConfiguracion("site")."/files";
-		
+
 		foreach($this->bloques as $unBloque){
 			$salida[$unBloque["seccion"]]=$this->incluirBloque($unBloque);
 		}
 		include($this->raizDocumentos."/theme/".$this->miConfigurador->getVariableConfiguracion("tema")."/template.php");
-			
+
 		echo "</body>\n";
 	}
 	private function variablesTema(){
-		
+
 		//mensaje
 		if(isset($_REQUEST["mensaje"]) && $_REQUEST["mensaje"]<>""){
 			$valor['mensaje']=$_REQUEST['mensaje'];
 		}else{
-			$valor['mensaje']="";	
+			$valor['mensaje']="";
 		}
-		//Link Terminar Sesion 
-		
+		//Link Terminar Sesion
+
 		$formSaraData="action=barraLogin";
 		$formSaraData.="&bloque=barraLogin";
 		$formSaraData.="&bloqueGrupo=gui";
 		$formSaraData.="&opcionLogin=logout";
 		$formSaraData=$this->miConfigurador->fabricaConexiones->crypto->codificar_url($formSaraData,$this->enlace);
-		
-		$valor['linkFinSesion']=$formSaraData;		
-	
-		//Usuario Actual 
+
+		$valor['linkFinSesion']=$formSaraData;
+
+		//Usuario Actual
 
 		  if($this->miSesion->getValorSesion('idUsuario')<>""){
 			  $usuario_registro=$this->miSesion->getValorSesion('idUsuario');
@@ -160,9 +160,9 @@ class ArmadorPagina{
 		$usuario=$this->miRecursoDB->ejecutarAcceso($cadena,"busqueda");
 
 		if(is_array($usuario)){
-			$valor['nombreUsuario']=$usuario[0]['NOMBRE'];	
+			$valor['nombreUsuario']=$usuario[0]['NOMBRE'];
 		}else{
-			$valor['nombreUsuario']='';	
+			$valor['nombreUsuario']='';
 		}
 		return $valor;
 	}
@@ -176,7 +176,7 @@ class ArmadorPagina{
 		}else{
 			$archivo=$this->raizDocumentos."/blocks/".$unBloque["grupo"]."/".$unBloque["nombre"]."/bloque.php";
 		}
-	
+
 		return $archivo;
 	}
 
@@ -231,10 +231,10 @@ class ArmadorPagina{
 			}
 
 			if(file_exists($archivo)){
-					
+
 				include($archivo);
 				echo "\n";
-					
+
 			}
 		}
 		echo "});\n";
