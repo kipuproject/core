@@ -1,4 +1,4 @@
-<?php
+<?
 
 include_once("WidgetHtml.class.php");
 
@@ -25,7 +25,7 @@ class  FormularioHtml extends WidgetHtml
 		$this->cadenaHTML.=recaptcha_get_html($publickey);
 		$this->cadenaHTML.="</div>\n";
 		return $this->cadenaHTML;
-
+			
 	}
 
 
@@ -296,17 +296,17 @@ class  FormularioHtml extends WidgetHtml
 			$this->cadenaHTML.="<fieldset class='ui-widget ui-widget-content' ";
 			$this->cadenaHTML.=">\n";
 			$this->cadenaHTML.="<legend class='ui-state-default ui-corner-all'>\n".$atributos["etiqueta"]."</legend>\n";
-
-
+			
+				
 		}else{
-
+			
 			if(isset($atributos["estilo"]) && $atributos["estilo"]!=""){
 				$this->cadenaHTML="<div class='".$atributos["estilo"]."'>\n";
-
+			
 			}else{
 				$this->cadenaHTML="<div class='campoAreaTexto'>\n";
 			}
-
+				
 			$this->cadenaHTML.=$this->etiqueta($atributos);
 			$this->cadenaHTML.="<div class='campoAreaContenido'>\n";
 		}
@@ -554,7 +554,7 @@ class  FormularioHtml extends WidgetHtml
 
 	function listaNoOrdenada(){
 		$this->cadenaHTML="";
-
+			
 
 
 	}

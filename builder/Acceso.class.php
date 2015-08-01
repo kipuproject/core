@@ -1,4 +1,4 @@
-<?php
+<?
 require_once("core/manager/Configurador.class.php");
 require_once("core/builder/builderSql.class.php");
 
@@ -6,7 +6,7 @@ require_once("core/builder/builderSql.class.php");
 class Acceso {
 
 	private static $instance;
-
+	
     public static function singleton() {
         if (!isset(self::$instance)) {
             $className = __CLASS__;
@@ -28,13 +28,13 @@ class Acceso {
 		$result=$this->miRecursoDB->ejecutarAcceso($cadena,"busqueda");
 		$r=0;
 		while(isset($result[$r][0])){
-			$output[$result[$r][0]]=(boolean)$result[$r][1];
+			$output[$result[$r][0]]=(boolean)$result[$r][1];  
 		$r++;
 		}
 		return $output;
 	}
 
-
+	
 }
 
 //Fin de la clase db_admin

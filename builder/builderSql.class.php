@@ -3,16 +3,16 @@ include_once($this->miConfigurador->getVariableConfiguracion("raizDocumento")."/
 
 class BuilderSql extends Sql{
 
-	var $cadena_sql;
+	var $cadena_sql;	
 	var $miConfigurador;
-
+	
 	private static $instance;
 
 	function __construct(){
 		$this->miConfigurador=Configurador::singleton();
 		return 0;
 	}
-
+	
 	public static function singleton()
 	{
 		if (!isset(self::$instance)) {
@@ -33,23 +33,23 @@ class BuilderSql extends Sql{
 	private function clausula($indice,$parametro){
 
 		$prefijo=$this->miConfigurador->getVariableConfiguracion("prefijo");
-
+		
 		switch ($indice){
 			case "apiparams":
 				$cadena_sql="SELECT  ";
-				$cadena_sql.="param PARAM ";
-				$cadena_sql.="FROM ";
+				$cadena_sql.="param PARAM "; 
+				$cadena_sql.="FROM "; 
 				$cadena_sql.=$prefijo."api ";
 				$cadena_sql.="WHERE ";
 				$cadena_sql.="name = '".$parametro."' ";
 				$cadena_sql.="AND ";
 				$cadena_sql.="status='1'";
 				break;
-
+				
 			case "getAccess":
 				$cadena_sql="SELECT  ";
 				$cadena_sql.="tp.identificador, ";
-				$cadena_sql.="p.valor ";
+				$cadena_sql.="p.valor ";  
 				$cadena_sql.="FROM ";
 				$cadena_sql.=$prefijo."tipo_permiso tp ";
 				$cadena_sql.="INNER JOIN ";
@@ -59,9 +59,9 @@ class BuilderSql extends Sql{
 				$cadena_sql.="tp.identificador IN (".$parametro['permission'].") ";
 				$cadena_sql.="AND ";
 				$cadena_sql.="p.rol='".$parametro['rol']."'";
-
+				 
 				break;
-
+				
 			case "usuario":
 				$cadena_sql="SELECT  ";
 				$cadena_sql.="usuario, ";
@@ -110,7 +110,7 @@ class BuilderSql extends Sql{
 				$cadena_sql.="AND ";
 				$cadena_sql.="bp.id_pagina=p.id_pagina ";
 				$cadena_sql.="ORDER BY bp.seccion,bp.seccion ";
-				break;
+				break;					
 		}
 		//echo "<br/><br/>{$indice}->".$cadena_sql;// exit;
 		if(isset($cadena_sql)){
