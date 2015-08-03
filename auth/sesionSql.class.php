@@ -99,6 +99,5 @@ class sesionSql extends Sql{
 		}
 		//echo "<br/>".$indice."=".$this->cadena_sql[$indice];
 	}
-}"<br/>".$indice."=".$this->cadena_sql[$indice];
-	}
+
 }
